@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nutrix/Screens/Login/components/background.dart';
+import 'package:nutrix/Screens/SignUp/signup_screen.dart';
+import 'package:nutrix/components/already_have_an_account_check.dart';
 import 'package:nutrix/components/rounded_button.dart';
 import 'package:nutrix/components/rounded_input_field.dart';
 import 'package:nutrix/components/rounded_password_field.dart';
+import 'package:nutrix/constrants.dart';
 
 class Body extends StatelessWidget {
   const Body({
@@ -21,10 +24,12 @@ class Body extends StatelessWidget {
             'Login',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
+          SizedBox(height: size.height * 0.03),
           SvgPicture.asset(
             "assets/images/sign_in.svg",
             height: size.height * 0.35,
           ),
+          SizedBox(height: size.height * 0.03),
           RoundedInputField(
             hintText: "Your Email",
             onChanged: (value) {},
@@ -36,7 +41,20 @@ class Body extends StatelessWidget {
           RoundedButton(
             text: "Login",
             press: () {},
-          )
+          ),
+          SizedBox(height: size.height * 0.03),
+          AlreadyHaveAnAccountCheck(
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return SignUpScreen();
+                  },
+                ),
+              );
+            },
+          ),
         ],
       ),
     );
