@@ -6,7 +6,6 @@ import 'package:nutrix/components/already_have_an_account_check.dart';
 import 'package:nutrix/components/rounded_button.dart';
 import 'package:nutrix/components/rounded_input_field.dart';
 import 'package:nutrix/components/rounded_password_field.dart';
-import 'package:nutrix/constrants.dart';
 
 class Body extends StatelessWidget {
   const Body({
