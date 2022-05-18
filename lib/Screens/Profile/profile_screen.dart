@@ -9,16 +9,21 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: buildAppBar(context),
       body: Body(),
       bottomNavigationBar: MyBottomNavBar(),
     );
   }
 
-  AppBar buildAppBar() {
+  AppBar buildAppBar(BuildContext context) {
     return AppBar(
       backgroundColor: kPrimaryColor,
-      leading: SizedBox(),
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back_ios),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      ),
       // on Android is false by default
       centerTitle: true,
       title: Text("Profile"),
