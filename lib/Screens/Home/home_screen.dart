@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nutrix/Screens/Home/components/body.dart';
+import 'package:nutrix/components/my_bottom_nav_bar.dart';
 import 'package:nutrix/constrants.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -8,9 +9,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: SingleChildScrollView(
-        child: Body(),
-      ),
+      body: Body(),
+      bottomNavigationBar: MyBottomNavBar(),
     );
   }
 }
