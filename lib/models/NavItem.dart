@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nutrix/Screens/Home/home_screen.dart';
+import 'package:nutrix/Screens/Profile/profile_screen.dart';
 
 class NavItem {
   final int id;
@@ -36,6 +37,6 @@ class NavItems extends ChangeNotifier {
     NavItem(id: 3, icon: "assets/icons/camera.svg", destination: HomeScreen()),
     NavItem(
         id: 4, icon: "assets/icons/chef_nav.svg", destination: HomeScreen()),
-    NavItem(id: 5, icon: "assets/icons/user.svg", destination: HomeScreen()),
+    NavItem(id: 5, icon: "assets/icons/user.svg", destination: ProfileScreen()),
   ];
 }
