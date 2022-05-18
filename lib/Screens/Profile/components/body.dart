@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:nutrix/Screens/Login/login_screen.dart';
 import 'package:nutrix/Screens/Profile/components/info.dart';
 import 'package:nutrix/Screens/Profile/components/profile_menu_item.dart';
+import 'package:nutrix/components/rounded_button.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -34,6 +36,19 @@ class Body extends StatelessWidget {
             title: "Pending 4",
             press: () {},
           ),
+          RoundedButton(
+              text: "Log Out",
+              press: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return LoginScreen();
+                    },
+                  ),
+                );
+              },
+            ),
         ],
       ),
     );
