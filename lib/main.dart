@@ -17,6 +17,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Eiyo',
       theme: ThemeData(
         primaryColor: kPrimaryColor,
+        appBarTheme: AppBarTheme(color: Colors.white, elevation: 0),
+        visualDensity: VisualDensity.adaptivePlatformDensity,
         scaffoldBackgroundColor: Colors.white,
       ),
       home: WelcomeScreen(),
