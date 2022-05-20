@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nutrix/Screens/Home/components/categories.dart';
-import 'package:nutrix/Screens/Home/components/recipe_bundel_card.dart';
+import 'package:nutrix/Screens/History/components/recipe_bundel_card.dart';
 import 'package:nutrix/models/RecipeBundel.dart';
 
 class Body extends StatelessWidget {

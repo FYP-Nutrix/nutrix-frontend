@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nutrix/Screens/Home/components/calories_circle.dart';
 import 'package:nutrix/Screens/Home/components/categories.dart';
-import 'package:nutrix/Screens/Home/components/recipe_bundel_card.dart';
-import 'package:nutrix/models/RecipeBundel.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -10,25 +9,14 @@ class Body extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Categories(),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: GridView.builder(
-                itemCount: recipeBundles.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 1,
-                  mainAxisSpacing: 20,
-                  childAspectRatio: 1.65,
-                ),
-                itemBuilder: (context, index) => RecipeBundelcard(
-                  recipeBundle: recipeBundles[index],
-                  press: () {},
-                ),
-              ),
-            ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: CaloriesCircle(),
           ),
         ],
       ),
     );
   }
 }
+
+

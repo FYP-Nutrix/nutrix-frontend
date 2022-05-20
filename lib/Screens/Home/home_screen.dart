@@ -10,6 +10,11 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(),
       body: Body(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: Colors.green,
+        child: Icon(Icons.add_circle_rounded),
+      ),
       bottomNavigationBar: MyBottomNavBar(),
     );
   }
