@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       create: (context) => NavItems(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Eiyo',
+        title: 'Flutter Eiyo Hehe',
         theme: ThemeData(
           primaryColor: kPrimaryColor,
           appBarTheme: AppBarTheme(color: Colors.white, elevation: 0),
