@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:nutrix/constrants.dart';
 
 class Info extends StatelessWidget {
@@ -9,6 +12,45 @@ class Info extends StatelessWidget {
     required this.image,
   }) : super(key: key);
   final String name, email, image;
+
+  Future pickImage(ImageSource source) async {
+    try {
+      final image = await ImagePicker().pickImage(source: source);
+      if (image == null) return;
+
+      // final imageTemporary = File(image.path);
+      // setState(() => this.image = imageTemporary);
+    } on PlatformException catch (e) {
+      print('Faield to pick image : $e');
+    }
+  }
+
+  void _showCameraAction(BuildContext context) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => CupertinoActionSheet(
+        title: const Text('Update Profile Picture'),
+        message: const Text('Choose the type of action'),
+        actions: <CupertinoActionSheetAction>[
+          CupertinoActionSheetAction(
+            onPressed: () => pickImage(ImageSource.camera),
+            child: const Text('Take Picture with Camera'),
+          ),
+          CupertinoActionSheetAction(
+            onPressed: () => pickImage(ImageSource.gallery),
+            child: const Text('Choose Picture from Gallery'),
+          ),
+          CupertinoActionSheetAction(
+            isDestructiveAction: true,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('Cancel'),
+          )
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,21 +69,24 @@ class Info extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(bottom: 10),
-                  height: 140,
-                  width: 140,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: Colors.white,
-                      width: 8,
-                    ),
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage(image),
+                InkWell(
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 10),
+                    height: 140,
+                    width: 140,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Colors.white,
+                        width: 8,
+                      ),
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage(image),
+                      ),
                     ),
                   ),
+                  onTap: () => _showCameraAction(context),
                 ),
                 Text(
                   name,
