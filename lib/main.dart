@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
           appBarTheme: AppBarTheme(color: Colors.white, elevation: 0),
           visualDensity: VisualDensity.adaptivePlatformDensity,
           scaffoldBackgroundColor: Colors.white,
+          accentColor: kPrimaryLightColor,
         ),
         home: WelcomeScreen(),
       ),
