@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nutrix/Screens/Login/login_screen.dart';
+import 'package:nutrix/Screens/Login/new_login_screen.dart';
 import 'package:nutrix/Screens/SignUp/signup_screen.dart';
 import 'package:nutrix/Screens/Welcome/components/background.dart';
 import 'package:nutrix/components/rounded_button.dart';
@@ -31,7 +31,7 @@ class Body extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return LoginScreen();
+                      return LoginPage();
                     },
                   ),
                 );
