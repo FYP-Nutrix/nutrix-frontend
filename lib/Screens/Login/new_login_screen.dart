@@ -179,8 +179,6 @@ class _LoginPageState extends State<LoginPage> {
                                       ?.showSnackBar(snackBar);
                                 }
                               });
-                              // print json from api
-                              print(requestModel.toJson());
                             }
                           },
                           child: Text(

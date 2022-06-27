@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -15,7 +13,6 @@ class APIService {
 
     final response = await http.post(Uri.parse(endpoint), body: requestModel.toJson());
     if (response.statusCode == 200 || response.statusCode == 400 || response.statusCode == 401) {
-      print(response.body);
       return LoginResponseModel.fromJson(
         json.decode(response.body),
       );

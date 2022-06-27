@@ -1,13 +1,23 @@
+import 'package:jwt_decode/jwt_decode.dart';
+
 class LoginResponseModel {
   final String token;
   final String error;
+  final String userID;
 
-  LoginResponseModel({required this.token, required this.error});
+  LoginResponseModel({required this.token, required this.error, required this.userID});
 
   factory LoginResponseModel.fromJson(Map<String, dynamic> json) {
+    String getToken = json["access"] != null ? json["access"] : "";
+    String getError = json["detail"] != null ? json["detail"] : "";
+
+    Map<String, dynamic> payload = Jwt.parseJwt(getToken);
+    String getUserID = payload['user_id'];
+
     return LoginResponseModel(
-      token: json["access"] != null ? json["access"] : "",
-      error: json["detail"] != null ? json["detail"] : "",
+      token: getToken,
+      error: getError,
+      userID: getUserID != null ? getUserID: "",
     );
   }
 }
@@ -19,6 +29,7 @@ class LoginRequestModel {
   LoginRequestModel({
     required this.email,
     required this.password,
+    
   });
 
   Map<String, dynamic> toJson() {
