@@ -5,19 +5,19 @@ import 'package:nutrix/constrants.dart';
 class RoundedInputField extends StatelessWidget {
   final String hintText;
   final IconData icon;
-  final ValueChanged<String> onChanged;
+  final ValueChanged<String?> onSaved;
   const RoundedInputField({
     Key? key,
     required this.hintText,
     this.icon = Icons.person,
-    required this.onChanged,
+    required this.onSaved,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
-      child: TextField(
-        onChanged: onChanged,
+      child: TextFormField(
+        onSaved: onSaved,
         decoration: InputDecoration(
           icon: Icon(
             Icons.person,

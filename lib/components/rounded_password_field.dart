@@ -4,19 +4,19 @@ import 'package:nutrix/constrants.dart';
 
 class RoundedPasswordField extends StatelessWidget {
   final String hintText;
-  final ValueChanged<String> onChanged;
+  final ValueChanged<String?> onSaved;
   const RoundedPasswordField({
     Key? key,
-    required this.onChanged,
+    required this.onSaved,
     required this.hintText,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
-      child: TextField(
+      child: TextFormField(
         obscureText: true,
-        onChanged: onChanged,
+        onSaved: onSaved,
         decoration: InputDecoration(
           hintText: hintText,
           icon: Icon(
