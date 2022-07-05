@@ -1,8 +1,12 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 import 'package:nutrix/ProgressHUD.dart';
 import 'package:nutrix/Screens/Home/home_screen.dart';
-import 'package:nutrix/api/api_service.dart';
-import 'package:nutrix/models/login_model.dart';
+import 'package:nutrix/api/auth_api.dart';
+import 'package:nutrix/api/user_api.dart';
+import 'package:nutrix/models/user_model.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -13,15 +17,11 @@ class _LoginPageState extends State<LoginPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   GlobalKey<FormState> globalFormKey = new GlobalKey<FormState>();
   bool hidePassword = true;
-  late LoginRequestModel requestModel;
   bool isApiCallProcess = false;
 
-  @override
-  void initState() {
-    super.initState();
-    requestModel = new LoginRequestModel(email: "", password: "");
-  }
+  String _email = "", _password = "";
 
+  @override
   Widget build(BuildContext context) {
     return ProgressHUD(
       child: _uiSetup(context),
@@ -30,8 +30,8 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  @override
   Widget _uiSetup(BuildContext context) {
+    AuthAPI auth = Provider.of<AuthAPI>(context);
     return Scaffold(
       key: scaffoldKey,
       body: SingleChildScrollView(
@@ -95,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                               color: Theme.of(context).accentColor,
                             ),
                           ),
-                          onSaved: (input) => requestModel.email = input!,
+                          onSaved: (input) => _email = input!,
                         ),
                         SizedBox(
                           height: 20,
@@ -139,48 +139,34 @@ class _LoginPageState extends State<LoginPage> {
                                   .withOpacity(0.4),
                             ),
                           ),
-                          onSaved: (input) => requestModel.password = input!,
+                          onSaved: (input) => _password = input!,
                         ),
                         SizedBox(
                           height: 20,
                         ),
                         FlatButton(
                           onPressed: () {
-                            if (validateAndSave()) {
-                              setState(() {
-                                isApiCallProcess = true;
-                              });
-                              // Calling API to Login model
-                              APIService apiService = new APIService();
-                              apiService.login(requestModel).then((value) {
-                                setState(() {
-                                  isApiCallProcess = false;
-                                });
+                            final form = globalFormKey.currentState;
 
-                                if (value.token.isNotEmpty) {
-                                  final snackBar = SnackBar(
-                                    content: Text("Login Successful"),
-                                  );
-                                  scaffoldKey.currentState
-                                      ?.showSnackBar(snackBar);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return HomeScreen();
-                                      },
-                                    ),
-                                  );
-                                } else {
-                                  final snackBar = SnackBar(
-                                    content: Text(value.error),
-                                  );
-                                  scaffoldKey.currentState
-                                      ?.showSnackBar(snackBar);
+                            if (form!.validate()) {
+                              form.save();
+
+                              final Future<Map<String, dynamic>> response =
+                                  auth.login(_email, _password);
+
+                              response.then((response) {
+                                print(response.toString() + "response in login");
+                                if (response['message'] == "Succesful") {
+                                  // navigate to homescreen
+                                  Navigator.pushReplacementNamed(context, '/dashboard');
                                 }
                               });
-                              // print json from api
-                              print(requestModel.toJson());
+                            } else {
+                              Flushbar(
+                                title: 'Invalid form',
+                                message: 'Please complete the form properly',
+                                duration: Duration(seconds: 10),
+                              ).show(context);
                             }
                           },
                           child: Text(
@@ -204,15 +190,5 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-  }
-
-  bool validateAndSave() {
-    final form = globalFormKey.currentState;
-    if (form!.validate()) {
-      form.save();
-      return true;
-    } else {
-      return false;
-    }
   }
 }

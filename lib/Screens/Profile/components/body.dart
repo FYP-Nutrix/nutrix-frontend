@@ -2,10 +2,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:nutrix/Screens/Login/login_screen.dart';
 import 'package:nutrix/Screens/Profile/components/info.dart';
 import 'package:nutrix/Screens/Profile/components/profile_menu_item.dart';
+import 'package:nutrix/api/user_api.dart';
 import 'package:nutrix/components/rounded_button.dart';
+import 'package:nutrix/utility/shared_preference.dart';
+import 'package:provider/provider.dart';
 
 class EditProfilePicture extends StatefulWidget {
   const EditProfilePicture({Key? key}) : super(key: key);
@@ -30,10 +32,11 @@ class _EditProfilePictureState extends State<EditProfilePicture> {
 
   @override
   Widget build(BuildContext context) {
+    final userProfile = Provider.of<UserProvider>(context);
     return Info(
-      name: "Chui Yee Test",
-      email: "cy@mail.com",
-      image: "assets/images/cysotsot.png",
+      name: userProfile.user.firstName + " " + userProfile.user.lastName,
+      email: userProfile.user.email,
+      image: "assets/images/pic.png",
     );
   }
 }
@@ -69,14 +72,8 @@ class Body extends StatelessWidget {
           RoundedButton(
             text: "Log Out",
             press: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return LoginScreen();
-                  },
-                ),
-              );
+              UserPreferences().removeUser();
+              Navigator.pushReplacementNamed(context, '/login');
             },
           ),
         ],
