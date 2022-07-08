@@ -24,9 +24,6 @@ class UserProvider with ChangeNotifier {
   fetchUserDetails() async {
     String? userID;
     userID = await UserPreferences().getUserID();
-
-    print('Loading user details');
-
     Response response = await get(
       Uri.parse(AppUrl.userDetails + userID! + "/")
     );

@@ -10,7 +10,6 @@ class UserPreferences {
   }
 
   Future<bool> saveUserID(String userID) async {
-    print("userid is saved");
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('user_id', userID);
     return prefs.commit();
@@ -19,7 +18,6 @@ class UserPreferences {
   Future<String?> getUserID() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userID = prefs.getString("user_id");
-    print("getting user id...." + userID!);
     return userID;
   }
 
