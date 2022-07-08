@@ -1,7 +1,5 @@
 import 'package:http/http.dart';
 import 'package:jwt_decode/jwt_decode.dart';
-import 'package:nutrix/api/user_api.dart';
-import 'package:nutrix/models/login_model.dart';
 import 'package:nutrix/models/user_model.dart';
 import 'dart:convert';
 import 'dart:async';
@@ -10,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:nutrix/utility/settings.dart';
 import 'package:nutrix/utility/shared_preference.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart';
 
 enum Status {
@@ -42,7 +39,7 @@ class AuthAPI extends ChangeNotifier {
     notifyListeners();
   }
 
-  static Future<FutureOr> onValue(Response response) async {
+  static Future<Map<String, dynamic>> onValue(Response response) async {
     var result;
 
     final Map<String, dynamic> responseData = json.decode(response.body);
@@ -55,7 +52,6 @@ class AuthAPI extends ChangeNotifier {
 
       // now we will create shared preference and save data
       // UserPreferences().saveUser(authUser);
-
       result = {
         'status': true,
         'message': 'Successfully registered',
@@ -118,6 +114,26 @@ class AuthAPI extends ChangeNotifier {
       };
     }
     return result;
+  }
+
+  Future<Map<String, dynamic>> register(String first_name, String last_name,
+      String email, String phone_number, String password) async {
+    Map<String, dynamic> caloriesBodyData = {'daily_calories': 2000};
+    final Map<String, dynamic> apiBodyData = {
+      'email': email,
+      'first_name': first_name,
+      'last_name': last_name,
+      'phone_number': phone_number,
+      'password': password,
+      'daily_calories':caloriesBodyData,
+    };
+
+    return await post(Uri.parse(AppUrl.register),
+        body: json.encode(apiBodyData),
+        headers: {
+          'Content-Type': 'application/json',
+          "Accept": "application/json",
+        }).then(onValue).catchError(onError);
   }
 
   static onError(error) {

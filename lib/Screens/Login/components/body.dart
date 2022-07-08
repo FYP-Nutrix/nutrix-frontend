@@ -1,9 +1,8 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:nutrix/Screens/Home/home_screen.dart';
 import 'package:nutrix/Screens/Login/components/background.dart';
-import 'package:nutrix/Screens/SignUp/signup_screen.dart';
+import 'package:nutrix/Screens/SignUp/new_signup_screen.dart';
 import 'package:nutrix/api/auth_api.dart';
 import 'package:nutrix/components/already_have_an_account_check.dart';
 import 'package:nutrix/components/rounded_button.dart';
@@ -67,7 +66,6 @@ class _LoginPageBodyState extends State<Body> {
                             auth.login(_email, _password);
             
                         response.then((response) {
-                          print(response.toString() + "response in login");
                           if (response['message'] == "Succesful") {
                             // navigate to homescreen
                             Navigator.pushReplacementNamed(context, '/dashboard');
@@ -92,7 +90,7 @@ class _LoginPageBodyState extends State<Body> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return SignUpScreen();
+                      return Register();
                     },
                   ),
                 );

@@ -7,6 +7,7 @@ class AppUrl {
   // Login endpoint
   static const String login = baseUrl +  "api/token/";
 
+  static const String register = baseUrl + "user/user/";
   // User Details endpoint
   static const String userDetails = baseUrl + "user/user/";
 
