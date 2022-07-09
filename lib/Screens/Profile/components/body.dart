@@ -17,26 +17,18 @@ class EditProfilePicture extends StatefulWidget {
 }
 
 class _EditProfilePictureState extends State<EditProfilePicture> {
-  File? image;
-  Future pickImage(ImageSource source) async {
-    try {
-      final image = await ImagePicker().pickImage(source: source);
-      if (image == null) return;
 
-      final imageTemporary = File(image.path);
-      setState(() => this.image = imageTemporary);
-    } on PlatformException catch (e) {
-      print('Faield to pick image : $e');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     final userProfile = Provider.of<UserProvider>(context);
-    return Info(
-      name: userProfile.user.firstName + " " + userProfile.user.lastName,
-      email: userProfile.user.email,
-      image: "assets/images/pic.png",
+    return ChangeNotifierProvider(
+      create: (context) => UserProvider(),
+      child: Info(
+        name: userProfile.user.firstName + " " + userProfile.user.lastName,
+        email: userProfile.user.email,
+        image: "assets/images/pic.png",
+      ),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nutrix/constrants.dart';
+import 'package:nutrix/utility/settings.dart';
 
 class Info extends StatelessWidget {
   const Info({
@@ -11,49 +12,11 @@ class Info extends StatelessWidget {
     required this.email,
     required this.image,
   }) : super(key: key);
-  final String name, email, image;
-
-  Future pickImage(ImageSource source) async {
-    try {
-      final image = await ImagePicker().pickImage(source: source);
-      if (image == null) return;
-
-      // final imageTemporary = File(image.path);
-      // setState(() => this.image = imageTemporary);
-    } on PlatformException catch (e) {
-      print('Faield to pick image : $e');
-    }
-  }
-
-  void _showCameraAction(BuildContext context) {
-    showCupertinoModalPopup<void>(
-      context: context,
-      builder: (BuildContext context) => CupertinoActionSheet(
-        title: const Text('Update Profile Picture'),
-        message: const Text('Choose the type of action'),
-        actions: <CupertinoActionSheetAction>[
-          CupertinoActionSheetAction(
-            onPressed: () => pickImage(ImageSource.camera),
-            child: const Text('Take Picture with Camera'),
-          ),
-          CupertinoActionSheetAction(
-            onPressed: () => pickImage(ImageSource.gallery),
-            child: const Text('Choose Picture from Gallery'),
-          ),
-          CupertinoActionSheetAction(
-            isDestructiveAction: true,
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text('Cancel'),
-          )
-        ],
-      ),
-    );
-  }
-
+  final String name, email; 
+  final String image;
   @override
   Widget build(BuildContext context) {
+    String imagePath = AppUrl.baseUrl + image;
     return SizedBox(
       height: 240,
       child: Stack(
@@ -82,11 +45,10 @@ class Info extends StatelessWidget {
                       ),
                       image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage(image),
+                        image: NetworkImage(imagePath),
                       ),
                     ),
                   ),
-                  onTap: () => _showCameraAction(context),
                 ),
                 Text(
                   name,
