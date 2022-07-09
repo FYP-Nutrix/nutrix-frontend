@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +5,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:nutrix/Screens/Login/login_screen.dart';
 import 'package:nutrix/api/auth_api.dart';
 import 'package:nutrix/components/already_have_an_account_check.dart';
+import 'package:nutrix/components/build_input_decoration.dart';
 import 'package:nutrix/constrants.dart';
 import 'package:nutrix/models/user_model.dart';
 import 'package:provider/provider.dart';
@@ -193,15 +192,6 @@ class _RegisterState extends State<Register> {
           ),
         ),
       ),
-    );
-  }
-
-  InputDecoration buildInputDecoration(String hintText, IconData icon) {
-    return InputDecoration(
-      prefixIcon: Icon(icon, color: Color.fromRGBO(50, 62, 72, 1.0)),
-      hintText: hintText,
-      contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),
     );
   }
 }

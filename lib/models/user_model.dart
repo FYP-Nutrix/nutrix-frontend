@@ -4,6 +4,8 @@ class UserModel {
   String lastName;
   String phoneNumber;
   String email;
+  String password;
+  String profile_pic;
   bool is_active;
   bool is_patient;
   DailyCalories? calories;
@@ -14,8 +16,10 @@ class UserModel {
     this.lastName = "",
     this.phoneNumber = "",
     this.email = "",
+    this.profile_pic = "",
+    this.password = "",
     this.is_active = true,
-    this.is_patient = false,
+    this.is_patient = true,
     this.calories,
   });
 
@@ -26,6 +30,8 @@ class UserModel {
       lastName: json['last_name'],
       phoneNumber: json['phone_number'],
       email: json['email'],
+      profile_pic: json['profile_pic'],
+      password: json['password'] == null ? null : json['password'],
       is_active: json['is_active'],
       is_patient: json['is_patient'],
       calories: json["daily_calories"] == null ? null : DailyCalories.fromJson(json["daily_calories"]),
@@ -37,6 +43,8 @@ class UserModel {
         'last_name': lastName,
         'phone_number': phoneNumber,
         'email': email,
+        'profile_pic': profile_pic,
+        'password': password == null ? null: password,
         'is_active': is_active,
         'is_patient': is_patient,
         'daily_calories': DailyCalories == null ? null : DailyCalories().toJson(),
