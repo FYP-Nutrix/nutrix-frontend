@@ -11,4 +11,6 @@ class AppUrl {
   // User Details endpoint
   static const String userDetails = baseUrl + "/user/user/";
 
+  static const String dailyCalories = baseUrl + "/user/meal-setting/";
+
 }

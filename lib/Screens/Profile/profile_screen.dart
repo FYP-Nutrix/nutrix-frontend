@@ -32,13 +32,13 @@ class ProfileScreen extends StatelessWidget {
         TextButton(
           onPressed: () {
             Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return EditProfileScreen();
-                    },
-                  ),
-                );
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return EditProfileScreen();
+                },
+              ),
+            );
           },
           child: Text(
             "Edit",

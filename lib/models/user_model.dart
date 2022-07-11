@@ -34,7 +34,9 @@ class UserModel {
       password: json['password'] == null ? null : json['password'],
       is_active: json['is_active'],
       is_patient: json['is_patient'],
-      calories: json["daily_calories"] == null ? null : DailyCalories.fromJson(json["daily_calories"]),
+      calories: json["daily_calories"] == null
+          ? null
+          : DailyCalories.fromJson(json["daily_calories"]),
     );
   }
   dynamic toJson() => {
@@ -44,27 +46,28 @@ class UserModel {
         'phone_number': phoneNumber,
         'email': email,
         'profile_pic': profile_pic,
-        'password': password == null ? null: password,
+        'password': password == null ? null : password,
         'is_active': is_active,
         'is_patient': is_patient,
-        'daily_calories': DailyCalories == null ? null : DailyCalories().toJson(),
+        'daily_calories':
+            DailyCalories == null ? null : DailyCalories().toJson(),
       };
 }
 
 class DailyCalories {
-  int dailyCalories;
+  double dailyCalories;
 
   DailyCalories({
     this.dailyCalories = 2000,
   });
 
   factory DailyCalories.fromJson(Map<String, dynamic> json) => DailyCalories(
-    dailyCalories: json["daily_calories"] == null ? null : json["daily_calories"],
-  );
+        dailyCalories: double.parse(json["daily_calories"]),
+      );
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-    "daily_calories": dailyCalories == null ? null : dailyCalories,
+      "daily_calories": dailyCalories == null ? null : dailyCalories,
     };
     return map;
   }

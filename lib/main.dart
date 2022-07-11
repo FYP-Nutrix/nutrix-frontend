@@ -3,6 +3,7 @@ import 'package:nutrix/Screens/Home/home_screen.dart';
 import 'package:nutrix/Screens/Login/login_screen.dart';
 import 'package:nutrix/Screens/Welcome/welcome_screen.dart';
 import 'package:nutrix/api/auth_api.dart';
+import 'package:nutrix/api/calories_api.dart';
 import 'package:nutrix/api/user_api.dart';
 import 'package:nutrix/constrants.dart';
 import 'package:nutrix/models/NavItem.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthAPI()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => CaloriesProvider()),
       ],
       child: ChangeNotifierProvider(
         create: (context) => NavItems(),

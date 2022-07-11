@@ -34,6 +34,22 @@ class UserProvider with ChangeNotifier {
     }
   }
 
+  Future<UserModel> fetchUser() async {
+    String? userID = await UserPreferences().getUserID();
+    Response response = await get(Uri.parse(AppUrl.userDetails + userID! + "/"));
+    
+    if (response.statusCode == 200) {
+      var userData = json.decode(response.body);
+      UserModel userD = UserModel.fromJson(userData);
+      UserPreferences().saveUser(userD);
+      setUser(userD);
+      notifyListeners();
+      return UserModel.fromJson(jsonDecode(response.body));
+    } else {
+    throw Exception("failed to load data");
+    }
+  }
+
   notify() {
     notifyListeners();
   }
@@ -124,4 +140,6 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
     return result;
   }
+
+
 }

@@ -9,7 +9,6 @@ import 'package:nutrix/api/user_api.dart';
 import 'package:nutrix/components/build_input_decoration.dart';
 import 'package:nutrix/components/my_bottom_nav_bar.dart';
 import 'package:nutrix/constrants.dart';
-import 'package:nutrix/models/user_model.dart';
 import 'package:nutrix/utility/settings.dart';
 import 'package:provider/provider.dart';
 
@@ -81,14 +80,6 @@ class EditProfileState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     UserProvider user = Provider.of<UserProvider>(context);
-    var loading = Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        CircularProgressIndicator(),
-        Text(" Registering ... Please Wait"),
-      ],
-    );
-
     var doUpdate = () {
       final form = formKey.currentState;
       if (form!.validate()) {
@@ -99,16 +90,23 @@ class EditProfileState extends State<EditProfileScreen> {
               .updateUser(
                   _email, _firstName, _lastName, _phoneNumber, _changePassword)
               .then((response) {
-                print(response);
-                if(response['message']=="Succesful") {
-                  print(response);
-                  print("succesful in edit ");
-                  Navigator.of(context).pop();
-                } else {
-                  print(response['result']);
-                  print(response['message']);
-                }
-              });
+            print(response);
+            if (response['message'] == "Succesful") {
+              print(response);
+              print("succesful in edit ");
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return ProfileScreen();
+                  },
+                ),
+              ).then((result) => setState(() {}));
+            } else {
+              print(response['result']);
+              print(response['message']);
+            }
+          });
 
           user.notify();
         } else {
@@ -250,7 +248,7 @@ AppBar buildAppBar(BuildContext context) {
     ),
     centerTitle: true,
     title: const Text(
-      "Diary",
+      "Edit Profile",
       style: TextStyle(
         color: Colors.white,
       ),
