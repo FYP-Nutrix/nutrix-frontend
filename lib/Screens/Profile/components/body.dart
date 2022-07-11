@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:nutrix/Screens/CaloriesSetting/edit_calories.dart';
 import 'package:nutrix/Screens/Profile/components/info.dart';
 import 'package:nutrix/Screens/Profile/components/profile_menu_item.dart';
 import 'package:nutrix/api/user_api.dart';
 import 'package:nutrix/components/rounded_button.dart';
+import 'package:nutrix/constrants.dart';
+import 'package:nutrix/models/user_model.dart';
+import 'package:nutrix/utility/settings.dart';
 import 'package:nutrix/utility/shared_preference.dart';
 import 'package:provider/provider.dart';
 
@@ -17,18 +19,85 @@ class EditProfilePicture extends StatefulWidget {
 }
 
 class _EditProfilePictureState extends State<EditProfilePicture> {
+  late Future<UserModel> futureUser;
 
+  @override
+  void initState() {
+    super.initState();
+    futureUser = UserProvider().fetchUser();
+    print(futureUser.toString() + ": data is called");
+  }
 
   @override
   Widget build(BuildContext context) {
-    final userProfile = Provider.of<UserProvider>(context);
-    return ChangeNotifierProvider(
-      create: (context) => UserProvider(),
-      child: Info(
-        name: userProfile.user.firstName + " " + userProfile.user.lastName,
-        email: userProfile.user.email,
-        image: "assets/images/pic.png",
-      ),
+    return FutureBuilder<UserModel>(
+      future: futureUser,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return SizedBox(
+            height: 240,
+            child: Stack(
+              children: <Widget>[
+                ClipPath(
+                  clipper: CustomShape(),
+                  child: Container(
+                    height: 150,
+                    color: kPrimaryColor,
+                  ),
+                ),
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      InkWell(
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 10),
+                          height: 140,
+                          width: 140,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.white,
+                              width: 8,
+                            ),
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(
+                                  AppUrl.baseUrl + snapshot.data!.profile_pic),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Text(
+                        snapshot.data!.firstName +
+                            " " +
+                            snapshot.data!.lastName,
+                        style: TextStyle(
+                          fontSize: 22,
+                          color: kTextColor,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        snapshot.data!.email,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xFF8492A2),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return Text('${snapshot.error}');
+        }
+        return const CircularProgressIndicator();
+      },
     );
   }
 }
@@ -43,8 +112,17 @@ class Body extends StatelessWidget {
           SizedBox(height: 20),
           ProfileMenuItem(
             iconScr: "assets/icons/bookmark_fill.svg",
-            title: "Pending 1",
-            press: () {},
+            title: "Calories Settings",
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return EditCaloriesScreen();
+                  },
+                ),
+              );
+            },
           ),
           ProfileMenuItem(
             iconScr: "assets/icons/chef_color.svg",
