@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nutrix/models/RecipeBundel.dart';
@@ -25,45 +23,45 @@ class RecipeBundelcard extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Spacer(),
+                      const Spacer(),
                       Text(
                         recipeBundle.title,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 22,
                           color: Colors.white,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
                         recipeBundle.description,
-                        style: TextStyle(color: Colors.white54),
+                        style: const TextStyle(color: Colors.white54),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      Spacer(),
+                      const Spacer(),
                       buildInfoRow(
                         iconSrc: "assets/icons/pot.svg",
                         text: "${recipeBundle.recipes} Recipes",
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       buildInfoRow(
                         iconSrc: "assets/icons/chef.svg",
                         text: "${recipeBundle.chefs} Chefs",
                       ),
-                      Spacer(),
+                      const Spacer(),
                     ],
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               AspectRatio(
@@ -83,12 +81,12 @@ class RecipeBundelcard extends StatelessWidget {
     return Row(
       children: <Widget>[
         SvgPicture.asset(iconSrc),
-        SizedBox(
+        const SizedBox(
           width: 10,
         ),
         Text(
           text,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
           ),
         ),

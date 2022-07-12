@@ -14,7 +14,7 @@ class EditCaloriesScreen extends StatefulWidget {
         );
 
   @override
-  EditCaloriesState createState() => EditCaloriesState();
+  State<EditCaloriesScreen> createState() => EditCaloriesState();
 }
 
 class EditCaloriesState extends State<EditCaloriesScreen> {
@@ -24,6 +24,7 @@ class EditCaloriesState extends State<EditCaloriesScreen> {
   Widget build(BuildContext context) {
     CaloriesProvider dailyCaloriesP = Provider.of<CaloriesProvider>(context);
     double _newCaloriesValue = dailyCaloriesP.dailyCalories.dailyCalories;
+    // ignore: prefer_function_declarations_over_variables
     var doUpdateCalories = () {
       final form = formKey.currentState;
       if(form!.validate()) {
@@ -48,15 +49,15 @@ class EditCaloriesState extends State<EditCaloriesScreen> {
         appBar: buildAppBar(context),
         body: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 40),
             child: Form(
               key: formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 10),
-                  Text("Max Calories"),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 10),
+                  const Text("Max Calories"),
+                  const SizedBox(height: 5),
                   TextFormField(
                     initialValue:
                         '${context.watch<CaloriesProvider>().dailyCalories.dailyCalories}',
@@ -66,12 +67,12 @@ class EditCaloriesState extends State<EditCaloriesScreen> {
                     decoration:
                         buildInputDecoration("Enter New Calories", Icons.numbers),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   MaterialButton(
                     onPressed: doUpdateCalories,
                     textColor: kPrimaryLightColor,
                     color: kPrimaryColor,
-                    child: SizedBox(
+                    child: const SizedBox(
                       width: double.infinity,
                       child: Text(
                         "Save",
@@ -81,7 +82,7 @@ class EditCaloriesState extends State<EditCaloriesScreen> {
                     ),
                     height: 45,
                     minWidth: 600,
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(
                         Radius.circular(10),
                       ),
@@ -92,7 +93,7 @@ class EditCaloriesState extends State<EditCaloriesScreen> {
             ),
           ),
         ),
-        bottomNavigationBar: MyBottomNavBar(),
+        bottomNavigationBar: const MyBottomNavBar(),
       ),
     );
   }
@@ -102,7 +103,7 @@ AppBar buildAppBar(BuildContext context) {
   return AppBar(
     backgroundColor: kPrimaryColor,
     leading: IconButton(
-      icon: Icon(Icons.arrow_back_ios),
+      icon: const Icon(Icons.arrow_back_ios),
       onPressed: () {
         Navigator.of(context).pop();
       },

@@ -25,7 +25,6 @@ class _EditProfilePictureState extends State<EditProfilePicture> {
   void initState() {
     super.initState();
     futureUser = UserProvider().fetchUser();
-    print(futureUser.toString() + ": data is called");
   }
 
   @override
@@ -102,6 +101,8 @@ class _EditProfilePictureState extends State<EditProfilePicture> {
   }
 }
 
+
+
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -110,35 +111,7 @@ class Body extends StatelessWidget {
         children: <Widget>[
           EditProfilePicture(),
           SizedBox(height: 20),
-          ProfileMenuItem(
-            iconScr: "assets/icons/bookmark_fill.svg",
-            title: "Calories Settings",
-            press: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return EditCaloriesScreen();
-                  },
-                ),
-              );
-            },
-          ),
-          ProfileMenuItem(
-            iconScr: "assets/icons/chef_color.svg",
-            title: "Pending 2",
-            press: () {},
-          ),
-          ProfileMenuItem(
-            iconScr: "assets/icons/language.svg",
-            title: "Pending 3",
-            press: () {},
-          ),
-          ProfileMenuItem(
-            iconScr: "assets/icons/info.svg",
-            title: "Pending 4",
-            press: () {},
-          ),
+          CaloriesMenuItem(),
           RoundedButton(
             text: "Log Out",
             press: () {
@@ -148,6 +121,36 @@ class Body extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class CaloriesMenuItem extends StatefulWidget {
+  const CaloriesMenuItem({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<CaloriesMenuItem> createState() => _CaloriesMenuItemState();
+
+}
+
+class _CaloriesMenuItemState extends State<CaloriesMenuItem> {
+    @override
+  Widget build(BuildContext context) {
+    return ProfileMenuItem(
+      iconScr: "assets/icons/bookmark_fill.svg",
+      title: "Calories Settings",
+      press: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return EditCaloriesScreen();
+            },
+          ),
+        );
+      },
     );
   }
 }

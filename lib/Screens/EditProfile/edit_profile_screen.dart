@@ -11,6 +11,7 @@ import 'package:nutrix/components/my_bottom_nav_bar.dart';
 import 'package:nutrix/constrants.dart';
 import 'package:nutrix/utility/settings.dart';
 import 'package:provider/provider.dart';
+import 'dart:convert';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({
@@ -86,9 +87,14 @@ class EditProfileState extends State<EditProfileScreen> {
         form.save();
 
         if (_changePassword == "" && _confirmPassword == "") {
+          // convert image file path into json
+          File imageFile = new File(imagePath!);
+          List<int> imageBytes = imageFile.readAsBytesSync();
+          String base64Image = base64.encode(imageBytes);
+
           user
               .updateUser(
-                  _email, _firstName, _lastName, _phoneNumber, _changePassword)
+                  _email, _firstName, _lastName, _phoneNumber, _changePassword, base64Image)
               .then((response) {
             print(response);
             if (response['message'] == "Succesful") {

@@ -55,7 +55,7 @@ class UserProvider with ChangeNotifier {
   }
 
   Future<Map<String, dynamic>> updateUser(String email, String firstName,
-      String lastName, String phoneNumber, String password) async {
+      String lastName, String phoneNumber, String password, String profilePic) async {
     // get user id first
     var result;
     String? UserID;
@@ -76,6 +76,7 @@ class UserProvider with ChangeNotifier {
         'first_name': firstName.trim(),
         'last_name': lastName.trim(),
         'phone_number': phoneNumber.trim(),
+        'profile_pic': profilePic.trim(),
         'is_active': UserModel().is_active,
         'is_patient': UserModel().is_patient,
       };
@@ -108,6 +109,7 @@ class UserProvider with ChangeNotifier {
         'first_name': firstName.trim(),
         'last_name': lastName.trim(),
         'phone_number': phoneNumber.trim(),
+        'profile_pic': profilePic.trim(),
         'password': password.trim(),
         'is_active': UserModel().is_active,
         'is_patient': UserModel().is_patient,

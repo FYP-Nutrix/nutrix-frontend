@@ -20,7 +20,7 @@ AppBar buildAppBar() {
     leading: SizedBox(),
     centerTitle: true,
     title: const Text(
-      "Diary",
+      "My Diary",
       style: TextStyle(
         color: Colors.white,
       ),
