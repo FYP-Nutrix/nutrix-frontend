@@ -148,7 +148,7 @@ class EditProfileState extends State<EditProfileScreen> {
                           image: imagePath != null
                               ? AssetImage(imagePath!) as ImageProvider
                               : NetworkImage(
-                                  AppUrl.baseUrl + user.user.profile_pic),
+                                  user.user.profile_pic),
                         ),
                       ),
                     ),

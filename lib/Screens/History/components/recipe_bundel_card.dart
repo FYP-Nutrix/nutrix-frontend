@@ -47,14 +47,14 @@ class RecipeBundelcard extends StatelessWidget {
                       const Spacer(),
                       buildInfoRow(
                         iconSrc: "assets/icons/pot.svg",
-                        text: "${recipeBundle.recipes} Recipes",
+                        text: "${recipeBundle.recipes} Calories",
                       ),
                       const SizedBox(
                         height: 5,
                       ),
                       buildInfoRow(
                         iconSrc: "assets/icons/chef.svg",
-                        text: "${recipeBundle.chefs} Chefs",
+                        text: "${recipeBundle.chefs} Meal Size",
                       ),
                       const Spacer(),
                     ],
@@ -66,9 +66,9 @@ class RecipeBundelcard extends StatelessWidget {
               ),
               AspectRatio(
                 aspectRatio: 0.71,
-                child: Image.asset(
+                child: Image.network(
                   recipeBundle.imageSrc,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                   alignment: Alignment.centerLeft,
                 ),
               ),

@@ -23,7 +23,7 @@ class _ViewHistoryDetailsState extends State<ViewHistoryDetailsScreen> {
                 semanticContainer: true,
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 child: Image.network(
-                  'https://placeimg.com/640/480/any',
+                  'https://foodimage.blob.core.windows.net/labelimages/meal_logging/38.jpg',
                   fit: BoxFit.fill,
                 ),
                 shape: RoundedRectangleBorder(
@@ -33,14 +33,24 @@ class _ViewHistoryDetailsState extends State<ViewHistoryDetailsScreen> {
                 margin: EdgeInsets.all(10),
               ),
               Text(
-              'About',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              "user.about",
-              style: TextStyle(fontSize: 16, height: 1.4),
-            ),
+                'Food Nutrition',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                "Food Name: Pasta",
+                style: TextStyle(fontSize: 16, height: 1.4),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                "Calories: 95",
+                style: TextStyle(fontSize: 16, height: 1.4),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                "Meal Size: 1",
+                style: TextStyle(fontSize: 16, height: 1.4),
+              ),
             ],
           ),
         ),

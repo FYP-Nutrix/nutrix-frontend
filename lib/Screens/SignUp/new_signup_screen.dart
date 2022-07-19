@@ -139,17 +139,6 @@ class _RegisterState extends State<Register> {
                       "Enter Confirm Password", Icons.lock),
                 ),
                 SizedBox(height: 20),
-                CupertinoSwitch(
-                  value: _switchValue,
-                  onChanged: (value) {
-                    setState(() {
-                      _switchValue = value;
-                    });
-                    _is_patient = value;
-                  },
-                ),
-                Text("Are you a Patient?"),
-                SizedBox(height: 20),
                 auth.loggedInStatus == Status.Authenticating
                     ? loading
                     : MaterialButton(

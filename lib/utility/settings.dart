@@ -1,8 +1,6 @@
-
-
 class AppUrl {
   // default endpoint
-  static const String baseUrl = "http://127.0.0.1:8000";
+  static const String baseUrl = "http://20.89.37.100";
 
   // Login endpoint
   static const String login = baseUrl +  "/api/token/";

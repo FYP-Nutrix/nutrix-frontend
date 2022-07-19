@@ -62,7 +62,7 @@ class _EditProfilePictureState extends State<EditProfilePicture> {
                             image: DecorationImage(
                               fit: BoxFit.cover,
                               image: NetworkImage(
-                                  AppUrl.baseUrl + snapshot.data!.profile_pic),
+                                  snapshot.data!.profile_pic),
                             ),
                           ),
                         ),
