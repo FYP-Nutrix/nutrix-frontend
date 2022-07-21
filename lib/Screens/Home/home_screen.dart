@@ -1,5 +1,10 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:nutrix/Screens/History/add_meal.dart';
 import 'package:nutrix/Screens/Home/components/body.dart';
 import 'package:nutrix/api/calories_api.dart';
 import 'package:nutrix/components/my_bottom_nav_bar.dart';
@@ -14,13 +19,26 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         appBar: buildAppBar(context),
         body: HomeBody(),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: Colors.green,
-          child: Icon(Icons.add_circle_rounded),
-        ),
+        floatingActionButton: AddMealButton(),
         bottomNavigationBar: MyBottomNavBar(),
       ),
+    );
+  }
+}
+
+class AddMealButton extends StatelessWidget {
+  const AddMealButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddMealScreen()));
+      },
+      backgroundColor: Colors.green,
+      child: Icon(Icons.add_circle_rounded),
     );
   }
 }

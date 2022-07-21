@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:nutrix/components/my_bottom_nav_bar.dart';
 import 'package:nutrix/constrants.dart';
 
-class ViewHistoryDetailsScreen extends StatefulWidget {
-  const ViewHistoryDetailsScreen({Key? key}) : super(key: key);
+class CommunicationScreen extends StatefulWidget {
+  const CommunicationScreen({Key? key}) : super(key: key);
 
   @override
-  State<ViewHistoryDetailsScreen> createState() => _ViewHistoryDetailsState();
+  State<CommunicationScreen> createState() => _CommunicationScreenState();
 }
 
-class _ViewHistoryDetailsState extends State<ViewHistoryDetailsScreen> {
+class _CommunicationScreenState extends State<CommunicationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +23,7 @@ class _ViewHistoryDetailsState extends State<ViewHistoryDetailsScreen> {
                 semanticContainer: true,
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 child: Image.network(
-                  'https://www.seriouseats.com/thmb/_BkW9V2wK3Zed-zQAETkRSJS8ac=/1500x1125/filters:fill(auto,1)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2018__04__20180309-french-fries-vicky-wasik-15-5a9844742c2446c7a7be9fbd41b6e27d.jpg',
+                  'https://images.theconversation.com/files/304957/original/file-20191203-66986-im7o5.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop',
                   fit: BoxFit.fill,
                 ),
                 shape: RoundedRectangleBorder(
@@ -33,28 +33,23 @@ class _ViewHistoryDetailsState extends State<ViewHistoryDetailsScreen> {
                 margin: EdgeInsets.all(10),
               ),
               Text(
-                'Food Nutrition',
+                'Feedback',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16),
               Text(
-                "Food Name: French Fried",
-                style: TextStyle(fontSize: 16, height: 1.4),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                "Calories: 95",
-                style: TextStyle(fontSize: 16, height: 1.4),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                "Meal Size: 1",
+                "Keep up the good work",
                 style: TextStyle(fontSize: 16, height: 1.4),
               ),
             ],
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          backgroundColor: Colors.green,
+          child: Icon(Icons.check_circle),
+        ),
       bottomNavigationBar: MyBottomNavBar(),
     );
   }
@@ -71,7 +66,7 @@ AppBar buildAppBar(BuildContext context) {
     ),
     centerTitle: true,
     title: const Text(
-      "View Meal Diary",
+      "Communication",
       style: TextStyle(
         color: Colors.white,
       ),
