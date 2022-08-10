@@ -34,7 +34,6 @@ class CaloriesProvider with ChangeNotifier {
   }
 
   fetchDailyCaloriesNotify() async {
-    print("calories has been called");
     String? userID;
     userID = await UserPreferences().getUserID();
     Response response =
@@ -44,8 +43,6 @@ class CaloriesProvider with ChangeNotifier {
 
       DailyCalories dCalories = DailyCalories.fromJson(data);
       setDailyCalories(dCalories);
-
-      print(_dailyCalories.dailyCalories);
       notifyListeners();
     }
   }
@@ -54,15 +51,12 @@ class CaloriesProvider with ChangeNotifier {
     String? userID = await UserPreferences().getUserID();
 
     Map<String, dynamic> updateCaloriesData = {'daily_calories': newCalories};
-
     Response response = await put(
       Uri.parse(AppUrl.dailyCalories + userID! + "/"),
       headers: {"Content-Type": "application/json"},
       body: json.encode(updateCaloriesData),
     );
-
-    print("this api is called" + AppUrl.dailyCalories + userID + "/");
-
+    
     var result;
 
     if (response.statusCode == 200) {

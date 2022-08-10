@@ -1,9 +1,6 @@
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:nutrix/Screens/History/add_meal.dart';
 import 'package:nutrix/Screens/Home/components/body.dart';
 import 'package:nutrix/api/calories_api.dart';
