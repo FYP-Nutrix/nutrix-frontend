@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:nutrix/utility/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:nutrix/models/user_model.dart';
 import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'package:nutrix/utility/shared_preference.dart';
 
 class UserProvider with ChangeNotifier {
@@ -55,7 +57,7 @@ class UserProvider with ChangeNotifier {
   }
 
   Future<Map<String, dynamic>> updateUser(String email, String firstName,
-      String lastName, String phoneNumber, String password, String profilePic) async {
+      String lastName, String phoneNumber, String password, String? profileFile) async {
     // get user id first
     var result;
     String? UserID;
@@ -63,11 +65,9 @@ class UserProvider with ChangeNotifier {
 
     UserModel userDetails = await UserPreferences().getUser();
 
-    print("can i print data from user preference: " + userDetails.email);
-
-    // get user details
-
     Map<String, dynamic> updateUserData;
+
+    // profile pic logic here
 
     if (password == "") {
       print("calling edit api without password");
@@ -76,19 +76,32 @@ class UserProvider with ChangeNotifier {
         'first_name': firstName.trim(),
         'last_name': lastName.trim(),
         'phone_number': phoneNumber.trim(),
-        'profile_pic': profilePic.trim(),
         'is_active': UserModel().is_active,
         'is_patient': UserModel().is_patient,
       };
 
-      Response response = await put(
-        Uri.parse(AppUrl.userDetails + UserID! + "/"),
-        headers: {"Content-Type": "application/json"},
-        body: json.encode(updateUserData),
-      );
+      // Response response = await put(
+      //   Uri.parse(AppUrl.userDetails + UserID! + "/"),
+      //   headers: {"Content-Type": "application/json"},
+      //   body: json.encode(updateUserData),
+      // );
+
+      var request = http.MultipartRequest('PUT', Uri.parse(AppUrl.userDetails + UserID! + "/"));
+
+      request.fields['email'] = email.trim();
+      request.fields['first_name'] = firstName.trim();
+      request.fields['last_name'] = lastName.trim();
+      request.fields['phone_number'] = phoneNumber.trim();
+      request.fields['is_active'] = "true";
+      request.fields['is_patient'] = "true";
+      request.files.add(http.MultipartFile.fromBytes('profile_pic', File(profileFile!).readAsBytesSync(),filename: profileFile));
+
+      var response = await request.send();
 
       if (response.statusCode == 200) {
-        final Map<String, dynamic> responseData = json.decode(response.body);
+
+        final responseBody = await response.stream.bytesToString();
+        final Map<String, dynamic> responseData = json.decode(responseBody);
 
         UserModel user = UserModel.fromJson(responseData);
 
@@ -99,17 +112,15 @@ class UserProvider with ChangeNotifier {
         };
         notifyListeners();
       } else {
-        print(response.body);
-        result = {'status': false, 'message': json.decode(response.body)};
+        // print(response.body);
+        // result = {'status': false, 'message': json.decode(response.body)};
       }
     } else {
-      print("calling edit api without password");
       updateUserData = {
         'email': email.trim(),
         'first_name': firstName.trim(),
         'last_name': lastName.trim(),
         'phone_number': phoneNumber.trim(),
-        'profile_pic': profilePic.trim(),
         'password': password.trim(),
         'is_active': UserModel().is_active,
         'is_patient': UserModel().is_patient,
@@ -143,5 +154,5 @@ class UserProvider with ChangeNotifier {
     return result;
   }
 
-
+  
 }

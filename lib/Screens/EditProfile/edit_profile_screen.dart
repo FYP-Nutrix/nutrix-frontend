@@ -26,7 +26,7 @@ class EditProfileScreen extends StatefulWidget {
 
 class EditProfileState extends State<EditProfileScreen> {
   Duration get loginTime => Duration(milliseconds: timeDilation.ceil() * 2250);
-  File? image;
+  File? fileImage;
   String? imagePath;
   String _email = "";
   String _firstName = "";
@@ -43,8 +43,7 @@ class EditProfileState extends State<EditProfileScreen> {
     try {
       final image = await ImagePicker().pickImage(source: source);
       if (image == null) return;
-
-      final imageTemporary = File(image.path);
+      fileImage = File(image.path);
       setState(() => imagePath = image.path);
     } on PlatformException catch (e) {
       print('Faield to pick image : $e');
@@ -87,14 +86,9 @@ class EditProfileState extends State<EditProfileScreen> {
         form.save();
 
         if (_changePassword == "" && _confirmPassword == "") {
-          // convert image file path into json
-          File imageFile = new File(imagePath!);
-          List<int> imageBytes = imageFile.readAsBytesSync();
-          String base64Image = base64.encode(imageBytes);
-
           user
               .updateUser(
-                  _email, _firstName, _lastName, _phoneNumber, _changePassword, base64Image)
+                  _email, _firstName, _lastName, _phoneNumber, _changePassword, imagePath)
               .then((response) {
             print(response);
             if (response['message'] == "Succesful") {
@@ -113,9 +107,11 @@ class EditProfileState extends State<EditProfileScreen> {
               print(response['message']);
             }
           });
-
           user.notify();
-        } else {
+        } else if (_changePassword == _confirmPassword) {
+          print("same password logic here");
+        }
+        else {
           print("something is wrong");
         }
       }
