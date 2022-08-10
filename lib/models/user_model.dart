@@ -45,7 +45,6 @@ class UserModel {
         'last_name': lastName,
         'phone_number': phoneNumber,
         'email': email,
-        'profile_pic': profile_pic,
         'password': password == null ? null : password,
         'is_active': is_active,
         'is_patient': is_patient,
@@ -56,13 +55,16 @@ class UserModel {
 
 class DailyCalories {
   double dailyCalories;
+  String advice;
 
   DailyCalories({
     this.dailyCalories = 2000,
+    this.advice = "not at the moment",
   });
 
   factory DailyCalories.fromJson(Map<String, dynamic> json) => DailyCalories(
         dailyCalories: double.parse(json["daily_calories"]),
+        advice: json['advice'],
       );
 
   Map<String, dynamic> toJson() {

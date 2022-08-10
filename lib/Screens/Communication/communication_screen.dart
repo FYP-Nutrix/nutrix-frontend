@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:nutrix/api/calories_api.dart';
 import 'package:nutrix/components/my_bottom_nav_bar.dart';
 import 'package:nutrix/constrants.dart';
+import 'package:provider/provider.dart';
 
 class CommunicationScreen extends StatefulWidget {
   const CommunicationScreen({Key? key}) : super(key: key);
@@ -38,7 +40,7 @@ class _CommunicationScreenState extends State<CommunicationScreen> {
               ),
               const SizedBox(height: 16),
               Text(
-                "Keep up the good work",
+                '${context.watch<CaloriesProvider>().dailyCalories.advice}',
                 style: TextStyle(fontSize: 16, height: 1.4),
               ),
             ],
