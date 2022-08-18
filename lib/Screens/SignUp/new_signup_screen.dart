@@ -65,7 +65,6 @@ class _RegisterState extends State<Register> {
           });
         }
       } else {
-        print("form is not ok");
         Flushbar(
           title: 'Invalid form',
           message: 'Please complete the form',
@@ -124,6 +123,7 @@ class _RegisterState extends State<Register> {
                 Text("Password"),
                 SizedBox(height: 5),
                 TextFormField(
+                  obscureText: true,
                   autofocus: false,
                   onSaved: (value) => _password = value!,
                   decoration:
@@ -133,6 +133,7 @@ class _RegisterState extends State<Register> {
                 Text("Confirm Password"),
                 SizedBox(height: 5),
                 TextFormField(
+                  obscureText: true,
                   autofocus: false,
                   onSaved: (value) => _confimrPassword = value!,
                   decoration: buildInputDecoration(

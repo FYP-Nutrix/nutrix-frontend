@@ -155,7 +155,6 @@ class _LoginPageState extends State<LoginPage> {
                                   auth.login(_email, _password);
 
                               response.then((response) {
-                                print(response.toString() + "response in login");
                                 if (response['message'] == "Succesful") {
                                   // navigate to homescreen
                                   Navigator.pushReplacementNamed(context, '/dashboard');

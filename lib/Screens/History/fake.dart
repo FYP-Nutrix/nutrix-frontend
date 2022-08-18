@@ -17,20 +17,20 @@ class fakescreen extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: GridView.builder(
-                itemCount: newrecipeBundles.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 1,
-                  mainAxisSpacing: 20,
-                  childAspectRatio: 1.65,
-                ),
-                itemBuilder: (context, index) => RecipeBundelcard(
-                  recipeBundle: newrecipeBundles[index],
-                  press: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ViewHistoryDetailsScreen()));
-                  },
-                ),
-              ),
+              // child: GridView.builder(
+              //   itemCount: newrecipeBundles.length,
+              //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              //     crossAxisCount: 1,
+              //     mainAxisSpacing: 20,
+              //     childAspectRatio: 1.65,
+              //   ),
+              //   itemBuilder: (context, index) => RecipeBundelcard(
+              //     recipeBundle: newrecipeBundles[index],
+              //     press: () {
+              //       Navigator.of(context).push(MaterialPageRoute(builder: (context) => ViewHistoryDetailsScreen()));
+              //     },
+              //   ),
+              // ),
             ),
           ),
         ],

@@ -16,7 +16,6 @@ class CaloriesProvider with ChangeNotifier {
   DailyCalories get dailyCalories => _dailyCalories;
 
   void setDailyCalories(DailyCalories dCalories) {
-    print("set data");
     _dailyCalories = dCalories;
     notifyListeners();
   }
@@ -28,7 +27,6 @@ class CaloriesProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       return DailyCalories.fromJson(jsonDecode(response.body));
     } else {
-      print(response.body);
       throw Exception("failed to load data");
     }
   }
@@ -61,7 +59,6 @@ class CaloriesProvider with ChangeNotifier {
 
     if (response.statusCode == 200) {
       DailyCalories.fromJson(json.decode(response.body));
-      print(response.body);
       result = {
         'status': true,
         'message': 'Succesful',
@@ -70,7 +67,6 @@ class CaloriesProvider with ChangeNotifier {
       notifyListeners();
     } else {
       print("update calories failed");
-      print(response.body);
       result = {
         'status': true,
         'message': 'Failed',

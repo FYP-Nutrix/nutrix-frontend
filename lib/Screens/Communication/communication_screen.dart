@@ -14,45 +14,48 @@ class CommunicationScreen extends StatefulWidget {
 class _CommunicationScreenState extends State<CommunicationScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: buildAppBar(context),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: Column(
-            children: <Widget>[
-              Card(
-                semanticContainer: true,
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                child: Image.network(
-                  'https://images.theconversation.com/files/304957/original/file-20191203-66986-im7o5.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop',
-                  fit: BoxFit.fill,
+    return ChangeNotifierProvider(
+      create: (BuildContext context) => CaloriesProvider(),
+      child: Scaffold(
+        appBar: buildAppBar(context),
+        body: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            child: Column(
+              children: <Widget>[
+                Card(
+                  semanticContainer: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  child: Image.network(
+                    'https://images.theconversation.com/files/304957/original/file-20191203-66986-im7o5.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop',
+                    fit: BoxFit.fill,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 5,
+                  margin: EdgeInsets.all(10),
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+                Text(
+                  'Feedback',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-                elevation: 5,
-                margin: EdgeInsets.all(10),
-              ),
-              Text(
-                'Feedback',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                '${context.watch<CaloriesProvider>().dailyCalories.advice}',
-                style: TextStyle(fontSize: 16, height: 1.4),
-              ),
-            ],
+                const SizedBox(height: 16),
+                Text(
+                  '${context.watch<CaloriesProvider>().dailyCalories.advice}',
+                  style: TextStyle(fontSize: 16, height: 1.4),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
+        floatingActionButton: FloatingActionButton(
           onPressed: () {},
           backgroundColor: Colors.green,
           child: Icon(Icons.check_circle),
         ),
-      bottomNavigationBar: MyBottomNavBar(),
+        bottomNavigationBar: MyBottomNavBar(),
+      ),
     );
   }
 }

@@ -90,10 +90,7 @@ class EditProfileState extends State<EditProfileScreen> {
               .updateUser(
                   _email, _firstName, _lastName, _phoneNumber, _changePassword, imagePath)
               .then((response) {
-            print(response);
             if (response['message'] == "Succesful") {
-              print(response);
-              print("succesful in edit ");
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -102,139 +99,135 @@ class EditProfileState extends State<EditProfileScreen> {
                   },
                 ),
               ).then((result) => setState(() {}));
-            } else {
-              print(response['result']);
-              print(response['message']);
             }
           });
           user.notify();
         } else if (_changePassword == _confirmPassword) {
-          print("same password logic here");
-        }
-        else {
-          print("something is wrong");
         }
       }
     };
 
-    return Scaffold(
-      appBar: buildAppBar(context),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 40),
-          child: Form(
-            key: formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: InkWell(
-                    child: Container(
-                      margin: EdgeInsets.only(bottom: 10),
-                      height: 140,
-                      width: 140,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 8,
-                        ),
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: imagePath != null
-                              ? AssetImage(imagePath!) as ImageProvider
-                              : NetworkImage(
-                                  user.user.profile_pic),
+    return ChangeNotifierProvider(
+      create: (BuildContext context) => UserProvider(),
+      child: Scaffold(
+        appBar: buildAppBar(context),
+        body: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 40),
+            child: Form(
+              key: formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: InkWell(
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 10),
+                        height: 140,
+                        width: 140,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 8,
+                          ),
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: imagePath != null
+                                ? AssetImage(imagePath!) as ImageProvider
+                                : NetworkImage(
+                                    user.user.profile_pic),
+                          ),
                         ),
                       ),
-                    ),
-                    onTap: () => _showCameraAction(context),
-                  ),
-                ),
-                SizedBox(height: 15),
-                Text("Email"),
-                TextFormField(
-                  autofocus: false,
-                  initialValue: user.user.email,
-                  // validator: validateEmail,
-                  onSaved: (value) => _email = value!,
-                  decoration: buildInputDecoration("Enter Email", Icons.email),
-                ),
-                SizedBox(height: 20),
-                Text("First Name"),
-                SizedBox(height: 5),
-                TextFormField(
-                  autofocus: false,
-                  initialValue: user.user.firstName,
-                  onSaved: (value) => _firstName = value!,
-                  decoration: buildInputDecoration(
-                      "Enter First Name", Icons.text_fields),
-                ),
-                SizedBox(height: 20),
-                Text("Last Name"),
-                SizedBox(height: 5),
-                TextFormField(
-                  initialValue: user.user.lastName,
-                  autofocus: false,
-                  onSaved: (value) => _lastName = value!,
-                  decoration: buildInputDecoration(
-                      "Enter Last Name", Icons.text_fields),
-                ),
-                SizedBox(height: 20),
-                Text("Phone Number"),
-                SizedBox(height: 5),
-                TextFormField(
-                  initialValue: user.user.phoneNumber,
-                  autofocus: false,
-                  onSaved: (value) => _phoneNumber = value!,
-                  decoration:
-                      buildInputDecoration("Enter Phone Number", Icons.phone),
-                ),
-                SizedBox(height: 20),
-                Text("Change Password"),
-                SizedBox(height: 5),
-                TextFormField(
-                  autofocus: false,
-                  onSaved: (value) => _changePassword = value!,
-                  decoration:
-                      buildInputDecoration("Enter Password", Icons.lock),
-                ),
-                SizedBox(height: 20),
-                Text("Confirm Password"),
-                SizedBox(height: 5),
-                TextFormField(
-                  autofocus: false,
-                  onSaved: (value) => _confirmPassword = value!,
-                  decoration: buildInputDecoration(
-                      "Enter Confirm Password", Icons.lock),
-                ),
-                SizedBox(height: 20),
-                MaterialButton(
-                  onPressed: doUpdate,
-                  textColor: kPrimaryLightColor,
-                  color: kPrimaryColor,
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Text(
-                      "Save Profile",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
+                      onTap: () => _showCameraAction(context),
                     ),
                   ),
-                  height: 45,
-                  minWidth: 600,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
+                  SizedBox(height: 15),
+                  Text("Email"),
+                  TextFormField(
+                    autofocus: false,
+                    initialValue: user.user.email,
+                    // validator: validateEmail,
+                    onSaved: (value) => _email = value!,
+                    decoration: buildInputDecoration("Enter Email", Icons.email),
+                  ),
+                  SizedBox(height: 20),
+                  Text("First Name"),
+                  SizedBox(height: 5),
+                  TextFormField(
+                    autofocus: false,
+                    initialValue: user.user.firstName,
+                    onSaved: (value) => _firstName = value!,
+                    decoration: buildInputDecoration(
+                        "Enter First Name", Icons.text_fields),
+                  ),
+                  SizedBox(height: 20),
+                  Text("Last Name"),
+                  SizedBox(height: 5),
+                  TextFormField(
+                    initialValue: user.user.lastName,
+                    autofocus: false,
+                    onSaved: (value) => _lastName = value!,
+                    decoration: buildInputDecoration(
+                        "Enter Last Name", Icons.text_fields),
+                  ),
+                  SizedBox(height: 20),
+                  Text("Phone Number"),
+                  SizedBox(height: 5),
+                  TextFormField(
+                    initialValue: user.user.phoneNumber,
+                    autofocus: false,
+                    onSaved: (value) => _phoneNumber = value!,
+                    decoration:
+                        buildInputDecoration("Enter Phone Number", Icons.phone),
+                  ),
+                  SizedBox(height: 20),
+                  Text("Change Password"),
+                  SizedBox(height: 5),
+                  TextFormField(
+                    autofocus: false,
+                    onSaved: (value) => _changePassword = value!,
+                    decoration:
+                        buildInputDecoration("Enter Password", Icons.lock),
+                  ),
+                  SizedBox(height: 20),
+                  Text("Confirm Password"),
+                  SizedBox(height: 5),
+                  TextFormField(
+                    autofocus: false,
+                    onSaved: (value) => _confirmPassword = value!,
+                    decoration: buildInputDecoration(
+                        "Enter Confirm Password", Icons.lock),
+                  ),
+                  SizedBox(height: 20),
+                  MaterialButton(
+                    onPressed: doUpdate,
+                    textColor: kPrimaryLightColor,
+                    color: kPrimaryColor,
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        "Save Profile",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    height: 45,
+                    minWidth: 600,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
+        bottomNavigationBar: const MyBottomNavBar(),
       ),
-      bottomNavigationBar: const MyBottomNavBar(),
     );
   }
 }

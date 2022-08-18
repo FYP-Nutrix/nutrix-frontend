@@ -6,11 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nutrix/Screens/History/fake.dart';
+import 'package:nutrix/Screens/History/history_screen.dart';
 import 'package:nutrix/api/meal_logging_api.dart';
+import 'package:nutrix/api/user_api.dart';
 import 'package:nutrix/components/build_input_decoration.dart';
 import 'package:nutrix/components/my_bottom_nav_bar.dart';
 import 'package:nutrix/constrants.dart';
+import 'package:nutrix/utility/settings.dart';
+import 'package:nutrix/utility/shared_preference.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 class AddMealScreen extends StatefulWidget {
   const AddMealScreen({Key? key}) : super(key: key);
@@ -22,9 +27,11 @@ class AddMealScreen extends StatefulWidget {
 class _AddMealScreenState extends State<AddMealScreen> {
   File? image;
   String? imagePath;
-  String _mealType = "";
 
   final formKey = GlobalKey<FormState>();
+  final List<String> mealType = ['BREAKFAST', 'LUNCH', 'DINNER', 'SUPPER'];
+  // form values
+  String _currentMeayType = "BREAKFAST";
 
   Future pickImage(ImageSource source) async {
     try {
@@ -76,17 +83,38 @@ class _AddMealScreenState extends State<AddMealScreen> {
   @override
   Widget build(BuildContext context) {
     MealProvider mealP = Provider.of<MealProvider>(context);
+    UserProvider user = Provider.of<UserProvider>(context);
+
+    void sendMeal() async {
+      // create request
+      var request =
+          http.MultipartRequest('POST', Uri.parse(AppUrl.mealLogging));
+      // payload creation here
+      request.fields['meal_type'] = _currentMeayType;
+      request.fields['user'] = user.user.userID;
+      request.files.add(http.MultipartFile.fromBytes(
+          'meal_image[0]meal_image', File(imagePath!).readAsBytesSync(),
+          filename: imagePath));
+
+      var response = await request.send();
+
+      if (response.statusCode == 201) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return HistoryScreen();
+            },
+          ),
+        ).then((result) => setState(() {}));
+      }
+    }
 
     var doAddMeal = () {
       final form = formKey.currentState;
-      if(form!.validate()) {
+      if (form!.validate()) {
         form.save();
-        // File imageFile = new File(imagePath!);
-        // List<int> imageBytes = imageFile.readAsBytesSync();
-        // String base64Image = base64.encode(imageBytes);
-        mealP.addMeal(_mealType, imagePath!).then((response) {
-          print(response);
-        });
+        sendMeal();
       }
     };
 
@@ -121,30 +149,24 @@ class _AddMealScreenState extends State<AddMealScreen> {
                 height: 15,
               ),
               Form(
-                key: formKey,
-                child: TextFormField(
-                  autofocus: false,
-                  // validator: validateEmail,
-                  onSaved: (value) => _mealType = value!,
-                  decoration: buildInputDecoration(
-                      "Enter Meal Name", Icons.food_bank_sharp),
-                ),
-              ),
+                  key: formKey,
+                  child: DropdownButtonFormField(
+                    items: mealType.map((e) {
+                      return DropdownMenuItem(
+                        value: e,
+                        child: Text('$e'),
+                      );
+                    }).toList(),
+                    onChanged: (value) => setState(() {
+                      _currentMeayType = value.toString();
+                    }),
+                  )),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return fakescreen();
-                  },
-                ),
-              ).then((result) => setState(() {}));
-        },
+        onPressed: doAddMeal,
         backgroundColor: Colors.green,
         child: Icon(Icons.check),
       ),

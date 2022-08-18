@@ -128,6 +128,8 @@ class AuthAPI extends ChangeNotifier {
       'daily_calories':caloriesBodyData,
     };
 
+    print(apiBodyData.toString());
+
     return await post(Uri.parse(AppUrl.register),
         body: json.encode(apiBodyData),
         headers: {

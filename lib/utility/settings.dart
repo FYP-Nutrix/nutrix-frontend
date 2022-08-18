@@ -13,4 +13,6 @@ class AppUrl {
 
   static const String mealLogging = baseUrl + "/meal/meal-log/";
 
+  static const String foodNutrition = baseUrl + "/nutrition/nutrition-log/";
+
 }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/services.dart';
+import 'package:nutrix/models/nutrition_model.dart';
 import 'package:path/path.dart';
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
@@ -42,10 +43,8 @@ class MealProvider with ChangeNotifier {
       body: json.encode(addMealData),
     );
 
-    print("this api is called" + AppUrl.mealLogging);
 
     if (response.statusCode == 200) {
-      print(response.body);
       result = {
         'status': true,
         'message': 'Succesful',
@@ -53,8 +52,6 @@ class MealProvider with ChangeNotifier {
       };
       notifyListeners();
     } else {
-      print("update calories failed");
-      print(response.body);
       result = {
         'code': response.statusCode,
         'status': true,
